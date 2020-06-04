@@ -1,11 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab&display=swap');
 h1{
-    font-size:1000%;
+   font-family: 'Hepta Slab', serif;
+    font-size: 1000%;
+    color: rgb(87, 85, 85);
     text-align: center;
-    color: transparent;
-    color: gray;
-    font-family:"Lucida Console", Monaco, monospace;
-    font-weight: 100;
-   
+        background-image: url('https://i.pinimg.com/originals/f0/35/43/f03543328fc5e7031d8431bf8392153f.png');    
 }
 p{
     font-family: 'Courier New', Courier, monospace;

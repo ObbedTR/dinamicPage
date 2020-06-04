@@ -1,63 +1,31 @@
-//Se importa el paquete espress y el hbs
-const express =require('express');
-const hbs=require('hbs');
 
-//Se crea la app
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const express = require('express');
+const hbs = require('hbs');
+const mongoose = require('mongoose');
+
+const PUERTO = process.env.PORT || 3000;
+
+//posible error
+let artistRouter = require('./routes/artista')
+//posible error
+
 const app = express();
-//Se define la fuente de platillas
-app.set('view engine', 'hbs');
 
-//Se generan los Partials
-hbs.registerPartial('partial', (__dirname + '/views/partial.hbs', 'utf8'));
-hbs.registerPartials(__dirname + '/views/partials/')
-//Sitio estático
-app.use(express.static(__dirname + '/public'));
+app.set('view engine','hbs');
+hbs.registerPartials(__dirname + '/views/partials/');
 
-//Configuración de rutas
-app.get('/',(req, res)=>{
-    res.render('index',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'Inicio'
-    });
-});
-app.get('/koi',(req, res)=>{
-    res.render('koi',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'Koi Samnsa'
-    });
-});
-app.get('/AM',(req, res)=>{
-    res.render('AM',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'AM DeBrincat'
-    });
-});
-app.get('/elly',(req, res)=>{
-    res.render('elly',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'Elly Smallwood'
-    });
-});
-app.get('/jaime',(req, res)=>{
-    res.render('jaime',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'Jaime Ruíz'
-    });
-});
-app.get('/liam',(req, res)=>{
-    res.render('liam',{
-        autor: 'Jaime Obbed Tarango Ramírez 4°E',
-        year: new Date().getFullYear(),
-        tittle: 'La Rouille'
-    });
-});
+app.use('/', artistRouter);
 
-//Se incia el servidor web
-app.listen(3000, ()=>{
-    console.log('Escuchando el puerto 3000')
+mongoose.Promise = global.Promise;
+const cadena = 'mongodb+srv://artist:artist@tarangojaime-gulld.azure.mongodb.net/test';
+mongoose.connect(cadena,{useNewUrlParser:true, useUnifiedTopology:true})
+    .then(()=>{
+        console.log('Conexión con Mongo exitosa');
+    })
+    .catch(err=> console.log(err));
+
+
+app.listen(PUERTO, ()=>{
+    console.log('El sitio web ha sido debidamente iniciado')
 })
